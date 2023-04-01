@@ -1,2 +1,4 @@
 # Uber-Clone
  um clone do instagram conectando duas aplicações (DriverSide,UserSide)
+
+ PARA FAZER TESTES NA APLICAÇÃO PRIMEIRO NO PRONT DE COMANDOS RODE 'YARN' OU 'NPM INSTALL' PARA INSTALAR TODOS OS PACOTES E APOS RODE 'NPX EXPO START'

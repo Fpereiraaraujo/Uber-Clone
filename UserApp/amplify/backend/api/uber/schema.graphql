@@ -1,0 +1,55 @@
+type User @model @auth(rules: [{ allow: public }]){
+  id: ID!
+  username: String!
+  email: String!
+
+  orders: [Order] @hasMany
+  carId: ID@index(name: "byUser")
+  car: Car @hasOne(fields: ["carId"])
+  
+}
+
+type Car @model @auth(rules: [{ allow: public }])
+  {
+  id: ID!
+  type: String!
+  latitude: Float,
+  longitude: Float,
+  isActive: Boolean,
+  heading: Float,
+  
+
+  orders: [Order] @hasMany
+  userId: ID @index(name: "byUser")
+  user: User @hasOne(fields: ["userId"])
+
+}
+
+type Order @model @auth(rules: [{ allow: public }])
+  {
+  id: ID!
+  createdAt: String!
+  status: String,
+
+  
+  type: String!
+  
+  originLatitude: Float!
+  oreiginLongitude: Float!
+
+  destLatitude: Float!
+  destLongitude: Float!
+
+
+  userId: ID @index(name: "byUser")
+  user: User @hasOne(fields: ["userId"])
+
+  carId: ID@index(name: "byCar")
+  car: Car @hasOne(fields: ["carId"])
+}
+
+type Subscription {
+  onOrderUpdated(id: ID!): Order @aws_subscribe(mutations: ["updateOrder"])
+  onCarUpdated(id: ID!): Car @aws_subscribe(mutations: ["updateCar"])
+}
+
